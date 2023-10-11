@@ -1,0 +1,31 @@
+const access_token =
+  "a0da9c8ba0da9c8ba0da9c8b4fa3cf7831aa0daa0da9c8bc5f9415406a5914c7c1a6a8f";
+
+const owner_id = "59120170";
+
+const url = `https://api.vk.com/method/wall.get?access_token=${access_token}&owner_id=-${owner_id}&count=100&v=5.154`;
+
+const getPosts = async function (url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  showPosts(data);
+  return data;
+};
+
+function showPosts(posts) {
+  const wrapper = document.querySelector(".wrapper");
+  const div = document.createElement("div");
+  // const time = new Date().getTime();
+  // console.log(time);
+  div.innerHTML = `<div class="post-text">${posts.response.items[1].text}</div>
+                  <div class="post-date">${new Date(
+                    posts.response.items[1].date
+                  ).toString()}</div>`;
+  console.log(posts);
+
+  // img.src = posts.response.items[1].attachments[0].photo.sizes[2].url;
+
+  wrapper.append(div);
+}
+
+getPosts(url);
