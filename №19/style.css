@@ -1,0 +1,23 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.posts {
+  width: 1000px;
+  height: 80%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  text-align: center;
+  list-style-type: none;
+}
+
+img {
+  width: 500px;
+  height: 500px;
+  object-fit: top;
+}
