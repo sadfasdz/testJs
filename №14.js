@@ -1,34 +1,20 @@
-const arrFunctions = [
-  function one() {
-    return "one";
-  },
-  function two() {
-    return "two";
-  },
-  function tree() {
-    return "tree";
-  },
-  function four() {
-    return "four";
-  },
-  function five() {
-    return "five";
-  },
-  function six() {
-    return "six";
-  },
-];
+const url = "https://api.thecatapi.com/v1/images/search";
 
-function callFunctions(functions) {
-  return function () {
-    const arr = [];
-    functions.forEach((func) => {
-      arr.push(func());
+function getData(urlApi) {
+  new Promise((resolve, reject) => {
+    const response = fetch(urlApi);
+    resolve(response);
+    reject("Error");
+  })
+    .then((resolve) => {
+      return resolve.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
     });
-    return arr;
-  };
 }
 
-const fanctions = callFunctions(arrFunctions);
-
-console.log(fanctions());
+getData(url);

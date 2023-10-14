@@ -1,7 +1,10 @@
 const arrFunctions = [
   function one() {
-    return "one";
+    setTimeout(() => {
+      return 1;
+    }, 0);
   },
+
   function two() {
     return "two";
   },
@@ -20,5 +23,15 @@ const arrFunctions = [
 ];
 
 arrFunctions.forEach((value, index) => {
-  console.log(`index = ${index}, value = ${value()}`);
+  new Promise((resolve) => {
+    resolve(value);
+  })
+    .then((func) => {
+      console.log(func);
+      return func();
+    })
+    .then((data) => {
+      console.log(data);
+      console.log(`index = ${index}, value = ${data}`);
+    });
 });

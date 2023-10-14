@@ -1,47 +1,22 @@
+const data = {};
+
 const form = document.querySelector(".form");
 
-function sendForm(e) {
+form.addEventListener("input", function (e) {
+  data[e.target.name] = e.target.value;
+  console.log(JSON.stringify(data));
+});
+
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
-  // console.log(form.elements);
-  // const data = {};
-  // // console.log(form.elements);
-  // console.log(form);
-  console.log(form);
-  console.log(form.elements);
-  let formData = new FormData(form);
 
-  formData.append("asd", "zxc");
-  console.log(formData);
-  // ([
-  //   (data.name, data.surname, data.date, data.asd, data.wqe)
-  // ] = [
-  //   form.elements.name.value,
-  //   form.elements.surname.value,
-  //   form.elements.date.value,
-  //   form.elements.asd.value,
-  //   form.elements.wqe.value,
-  //   ]);
+  let response = await fetch("/article/formdata/post/user", {
+    // метод запроса
+    method: "POST",
+    // Данные
+    body: JSON.stringify(data),
+  });
 
-  // postData("", data).then((data) => {
-  //   console.log(data);
-  // });
-}
-
-form.addEventListener("submit", sendForm);
-
-// const postData = async function (url = "", data) {
-//   console.log(JSON.stringify(data));
-//   const response = await fetch("", {
-//     // Метод, если не указывать, будет использоваться GET
-//     method: "POST",
-//     // Заголовок запроса
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     // Данные
-//     body: JSON.stringify(data),
-//   });
-//   // console.log(response.json());
-//   let result =  response.json;
-// return result
-// };
+  let result = await response.json();
+  console.log(result);
+});

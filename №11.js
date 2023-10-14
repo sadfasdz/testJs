@@ -1,15 +1,11 @@
 // №11
 function func() {
-  let a = 0;
+  let a = 1230;
   return function () {
-    return a++;
+    return a;
   };
 }
 
 let abc = func();
 
-console.log(abc());
-console.log(abc());
-console.log(abc());
-console.log(abc());
 console.log(abc());

@@ -9,23 +9,28 @@ const getPosts = async function (url) {
   const response = await fetch(url);
   const data = await response.json();
   showPosts(data);
+  savePosts(data);
   return data;
 };
 
 function showPosts(posts) {
-  const wrapper = document.querySelector(".wrapper");
-  const div = document.createElement("div");
-  // const time = new Date().getTime();
-  // console.log(time);
-  div.innerHTML = `<div class="post-text">${posts.response.items[1].text}</div>
-                  <div class="post-date">${new Date(
-                    posts.response.items[1].date
-                  ).toString()}</div>`;
+  const list = document.querySelector(".posts");
   console.log(posts);
+  for (let i = 1; i < posts.response.items.length; i++) {
+    const li = document.createElement("li");
+    // const time = new Date().getTime();
+    // console.log(time);
+    li.innerHTML = `<div class="post-text">${posts.response.items[i].text}</div>
+                  <div class="post-date">${new Date(
+                    posts.response.items[i].date
+                  ).toString()}</div>`;
 
-  // img.src = posts.response.items[1].attachments[0].photo.sizes[2].url;
+    // img.src = posts.response.items[1].attachments[0].photo.sizes[2].url;
 
-  wrapper.append(div);
+    list.append(li);
+  }
 }
+
+function savePosts(posts) {}
 
 getPosts(url);

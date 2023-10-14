@@ -69,4 +69,4 @@ function convertStringToArray(str) {
 const jsonString =
   '{"name":"John","age":30,"city":"New York","isMarried":true,"hobbies":["reading","swimming"],"address":{"street":"Main St","number":100}}';
 const json = convertStringToJson(jsonString);
-console.log(json); // выведет { name: 'John', age: 30, city: 'New York', isMarried: true, hobbies: [ 'reading', 'swimming' ], address: { street: 'Main St', number: 100 } }
+console.log(json);

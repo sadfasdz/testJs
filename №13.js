@@ -1,28 +1,60 @@
 class Shape {
-  constructor(a, b, c, h, P) {
+  squareTriangle() {
+    return (this.h * this.a) / 2;
+  }
+  perimeterTriangle() {
+    return this.a + this.b + this.c;
+  }
+  squareSquare() {
+    return this.a * this.b;
+  }
+  perimeterSquare() {
+    return (this.a + this.b) * 2;
+  }
+  squareСircle() {
+    return Math.PI * this.r ** 2;
+  }
+  perimeterСircle() {
+    return 2 * Math.PI * this.r;
+  }
+}
+
+class Triangle extends Shape {
+  constructor(a, b, c, h) {
+    super();
     this.a = a;
     this.b = b;
+    this.c = c;
     this.h = h;
   }
 }
 
-class Tri extends Shape {
-  square() {
-    return (this.h * this.a) / 2;
-  }
-}
-
 class Square extends Shape {
-  square() {
-    return this.a * this.b;
+  constructor(a, b) {
+    super();
+    this.a = a;
+    this.b = b;
   }
 }
 
-let tri = new Tri((a = 4), (h = 5));
+class Circle extends Shape {
+  constructor(r) {
+    super();
+    this.r = r;
+  }
+}
 
-let dva = new Square((a = 4), (b = 5));
-// console.log(dva);
-// console.log(dva.square());
+let triangle = new Triangle(4, 5, 7, 4);
 
-console.log(dva.square());
-console.log(tri.square());
+let square = new Square(4, 5);
+
+let circle = new Circle(7);
+
+console.log(triangle.squareTriangle());
+console.log(triangle.perimeterTriangle());
+
+console.log(square.squareSquare());
+console.log(square.perimeterSquare());
+
+console.log(circle.squareСircle());
+console.log(circle.perimeterСircle());

@@ -12,7 +12,7 @@ function creationLinerList(json) {
       email: data[i].email,
       next: obj, // следующий узел - текущее начало списка
     };
-    obj = node; // обновляем начало списка
+    obj = node; // перезаписываем начало списка
   }
 
   return obj; // возвращаем начало списка
