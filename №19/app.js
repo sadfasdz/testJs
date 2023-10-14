@@ -1,7 +1,7 @@
 const access_token =
   "a0da9c8ba0da9c8ba0da9c8b4fa3cf7831aa0daa0da9c8bc5f9415406a5914c7c1a6a8f";
 
-const owner_id = "59120170";
+const owner_id = "1";
 
 const url = `https://api.vk.com/method/wall.get?access_token=${access_token}&owner_id=-${owner_id}&count=100&v=5.154`;
 
@@ -16,8 +16,6 @@ async function getPosts(url) {
 
 function showPosts(posts) {
   const list = document.querySelector(".posts");
-  console.log(posts);
-  console.log(posts.response.items[1].date);
   for (let i = 1; i < posts.response.items.length; i++) {
     const li = document.createElement("li");
     li.classList.add("posts-item");
@@ -36,7 +34,9 @@ function showPosts(posts) {
 }
 getPosts(url);
 
-const arrPosts = [];
+const arrPosts = localStorage.getItem("posts")
+  ? JSON.parse(localStorage.getItem("posts"))
+  : [];
 function savePosts() {
   let callback = (entries, observer) => {
     const post = {};
@@ -49,10 +49,20 @@ function savePosts() {
         arrPosts.push(post);
         try {
           localStorage.setItem("posts", JSON.stringify(arrPosts));
+          navigator.storage.estimate().then(({ quota }) => {
+            console.log(
+              `занято: ${getLocalStorageSize()} / Максимальный размер хранилища: ${quota} `
+            );
+          });
         } catch {
           const posts = JSON.parse(localStorage.getItem("posts"));
           posts.shift();
           localStorage.setItem("posts", JSON.stringify(arrPosts));
+          navigator.storage.estimate().then(({ quota }) => {
+            console.log(
+              `занято: ${getLocalStorageSize()} / Максимальный размер хранилища: ${quota} `
+            );
+          });
         }
 
         observer.unobserve(entry.target);
@@ -73,4 +83,15 @@ function savePosts() {
   postItems.forEach((target) => {
     observer.observe(target);
   });
+}
+
+function getLocalStorageSize() {
+  let total = 0;
+  for (const key in localStorage) {
+    if (localStorage.hasOwnProperty(key)) {
+      const value = localStorage.getItem(key);
+      total += value.length;
+    }
+  }
+  return total;
 }
