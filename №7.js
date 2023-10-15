@@ -1,10 +1,7 @@
 const arrFunctions = [
   function one() {
-    setTimeout(() => {
-      return 1;
-    }, 0);
+    return "one";
   },
-
   function two() {
     return "two";
   },
@@ -22,16 +19,11 @@ const arrFunctions = [
   },
 ];
 
-arrFunctions.forEach((value, index) => {
-  new Promise((resolve) => {
-    resolve(value);
-  })
-    .then((func) => {
-      console.log(func);
-      return func();
-    })
-    .then((data) => {
-      console.log(data);
-      console.log(`index = ${index}, value = ${data}`);
-    });
-});
+function callFunctions(index) {
+  if (index < arrFunctions.length) {
+    console.log(`index = ${index}, value = ${arrFunctions[index]()}`);
+    setTimeout(() => callFunctions(index + 1), 0); //Это позволяет вызвать следующую функцию только после завершения работы предыдущей функции.
+  }
+}
+
+callFunctions(0);
